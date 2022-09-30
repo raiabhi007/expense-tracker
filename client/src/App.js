@@ -1,45 +1,35 @@
 import {useState} from 'react';
+import {useEffect} from 'react';
+import AppBar from './components/AppBar.js';
+import TransactionForm from './components/TransactionForm.js';
+import TransactionList from './components/TransactionList.js';
+import Container from '@mui/material/Container';
+
 
 function App() {
-  const [form,setForm] = useState({
-    amount:0,
-    description:"",
-    date:"",
-  });
+  const [transactions,setTransactions] = useState([])
+  
+  useEffect(() => {
+    fetchTransactions()     
+  }, [])
 
-  function handleInput(e) {
-    setForm({...form,[e.target.name]: e.target.value })
+   async function fetchTransactions(){
+    const res = await fetch('http://localhost:4000/transaction')
+    const {data} = await res.json();
+    setTransactions(data);
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault(); 
-    const res = await fetch('http://localhost:4000/transaction',{
-      method:"POST",
-      body:form,
-    });
-    console.log(res);
-  }
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-       <input type="number"
-       name="amount"
-       value={form.amount}
-       onChange={handleInput} 
-       placeholder="Enter transaction amount"/>
-
-       <input type="text" name="description"
-       value={form.description}
-       onChange={handleInput} 
-       placeholder="Enter transaction details" />
-
-       <input type="date" name="date"
-       value={form.date}
-       onChange={handleInput} 
-       />
-       <button type="submit">Submit</button>
-      </form>
+      <AppBar/>
+      <Container>
+      <TransactionForm fetchTransactions={fetchTransactions}/>
+      <TransactionList transactions={transactions}
+      fetchTransactions={fetchTransactions}
+      /> 
+      </Container>     
+      <br/>
     </div>
   );
 }
