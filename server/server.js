@@ -3,6 +3,8 @@ import connect from './database/mongodb.js';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import TransactionsApi from "./routes/TransactionsApi.js";
+import AuthApi from "./routes/AuthApi.js";
+
 
 const PORT = 4000
 const app = express();
@@ -14,6 +16,7 @@ app.get('/',(req,res) =>{
 });
 
 app.use("/transaction",TransactionsApi);
+app.use("/auth",AuthApi);
 
 await connect();
 
