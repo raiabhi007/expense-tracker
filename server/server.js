@@ -6,7 +6,9 @@ import passport from 'passport';
 import TransactionsApi from "./routes/TransactionsApi.js";
 import AuthApi from "./routes/AuthApi.js";
 import passportConfig from './config/passport.js';
+import * as  dotenv from 'dotenv';
 
+dotenv.config();
 
 const PORT = 4000
 const app = express();
