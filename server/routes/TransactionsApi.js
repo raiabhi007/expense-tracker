@@ -5,7 +5,7 @@ import * as TransactionController from "../controller/TransactionController.js"
 const router = Router();
 
 router.get('/',
-passport.authenticate("jwt",{ session : false }),
+
 TransactionController.index
 );
 
