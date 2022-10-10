@@ -12,8 +12,11 @@ import Container from '@mui/material/Container';
 import {Link as RouterLink} from "react-router-dom";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {getUser} from "../store/auth.js";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -32,9 +35,10 @@ export default function Login() {
       },
     });
 
-    const {token} = await res.json();
+    const {token,user} = await res.json();
     if(res.ok){
       Cookies.set('token',token);
+      dispatch(getUser(user));
       navigate("/");
       // console.log(token);
     }
