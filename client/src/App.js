@@ -2,7 +2,7 @@
 import AppBar from './components/AppBar.js';
 import { Outlet } from "react-router-dom";
 import {useDispatch} from 'react-redux';
-import {getUser} from "./store/auth.js";
+import {setUser} from "./store/auth.js";
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie';
 
@@ -23,7 +23,7 @@ function App() {
       
       if(res.ok){
         const user = await res.json();
-        dispatch(getUser(user));
+        dispatch(setUser(user));
       }
       setIsLoading(false);
   }

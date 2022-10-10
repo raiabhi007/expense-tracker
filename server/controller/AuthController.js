@@ -1,8 +1,14 @@
 import User from "../models/User.js";
- import bcrypt from 'bcrypt';
- import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-
+const categories = [
+    { label:"Travel", icon:"user" },
+    { label:"Shopping", icon:"user" },
+    { label:"Investment", icon:"user" },
+    { label:"Bills", icon:"user" },
+    { label:"Food", icon:"user" },
+]
 export const register = async (req,res) =>{
     //get all form data
     const {email,password,firstName,lastName} = req.body;
@@ -18,8 +24,15 @@ export const register = async (req,res) =>{
     const salt = await bcrypt.genSaltSync(saltRounds);
     const hashedPassword = await bcrypt.hashSync(password,salt);
 
-    const user = await User({email,password:hashedPassword,firstName,lastName});
-    await user.save();
+    const user = await User({
+        email,
+        password:hashedPassword,
+        firstName,
+        lastName,
+        categories,
+    });
+    
+        await user.save();
     //store user
     res.status(201).json({message:"user is created"});
 }

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import {Link,useNavigate} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom';
 import Cookies from 'js-cookie';
 import {logout} from "../store/auth.js";
 import {useDispatch,useSelector} from "react-redux";
@@ -28,6 +28,9 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to="/" className="text-white">Expensor</Link>
           </Typography>
+          <Link to="/category" className="text-white">
+                  <Button color="inherit">Category</Button>
+          </Link>
           {
             isAuthenticated && (
             <Button color="inherit" onClick={_logout}>Logout</Button>

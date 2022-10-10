@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Box from "@mui/material/Box";
+import Autocomplete from '@mui/material/Autocomplete';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -9,15 +11,21 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Button from '@mui/material/Button';
 import {useEffect} from 'react';
 import Cookies from 'js-cookie';
+import {useSelector} from 'react-redux';
+
 const InitialForm = {
     amount: 0,
     description: "",
     date: new Date(),
+    category_id:'',
   }
 
 export default function TransactionForm({fetchTransactions,editTransaction}) {
+    const { categories } = useSelector((state) => state.auth.user);
     const [form,setForm] = useState(InitialForm);
     const token = Cookies.get('token');  
+   
+
     useEffect(() => {
       if(editTransaction.amount !== undefined){
         setForm(editTransaction);
@@ -71,7 +79,11 @@ export default function TransactionForm({fetchTransactions,editTransaction}) {
         reload(res);
       }
 
-
+      function getCategoryNameById(){
+        return(
+          categories.find((category)=>category._id===form.category_id)??""
+        );
+      }
 
   return (
     <Card sx={{ minWidth: 275, marginTop:10 }}>
@@ -79,11 +91,12 @@ export default function TransactionForm({fetchTransactions,editTransaction}) {
       <Typography variant="h6">
             Add New Transactions
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit} sx={{display:'flex'}}>
         <TextField
-        sx={{marginRight:5}} 
+       sx= {{marginRight:5}}
         id="outlined-basic" 
         label="Amount"
+        size="small"
         name="amount" 
         variant="outlined"
         value={form.amount}
@@ -110,6 +123,21 @@ export default function TransactionForm({fetchTransactions,editTransaction}) {
           <TextField sx={{marginRight:5}} size="small"{...params} />}
         />
         </LocalizationProvider>
+        <Autocomplete
+        value={getCategoryNameById()}
+        onChange={(event, newValue) => {
+          setForm({...form, category_id:newValue._id});
+        }}
+        
+        id="controllable-states-demo"
+        options={categories}
+        sx={{ width: 200, marginRight:5 }}
+        renderInput={(params) => 
+        <TextField {...params} 
+        sx={{marginRight:5}}
+        size="small"
+        label="Category" />}
+      />
           {
              editTransaction.amount !== undefined &&(
             <Button type="submit" variant="secondary" >
@@ -121,8 +149,8 @@ export default function TransactionForm({fetchTransactions,editTransaction}) {
              Submit
             </Button>
           )}
-        
-        </form>     
+
+        </Box>      
       </CardContent>
     </Card>
   );

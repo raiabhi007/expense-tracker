@@ -5,7 +5,7 @@ import {createBrowserRouter} from 'react-router-dom';
 import App from './App';
 import Guest from  './utils/Guest';
 import CheckAuth from './utils/CheckAuth';
-
+import Category from './pages/Category';
 
 
 export default createBrowserRouter([
@@ -33,6 +33,14 @@ export default createBrowserRouter([
         <Guest>
         <Register/>
         </Guest>
+      ),
+      },
+      {
+        path:"/category",
+      element:(
+        <CheckAuth>
+        <Category/>
+        </CheckAuth>
       ),
       }
     ],
