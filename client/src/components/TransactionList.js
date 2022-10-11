@@ -14,12 +14,14 @@ import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
 import {useSelector} from 'react-redux';
 
-export default function TransactionList({transactions,fetchTransactions,setEditTransaction}) {
+export default function TransactionList(
+  {data,fetchTransactions,setEditTransaction}) {
     const user = useSelector((state) => state.auth.user); 
     function categoryName(id){
       const category = user.categories.find((category) => category._id===id);
-      return category?category.label:"NA";
+      return category ? category.label:"NA";
     }
+
     async function remove(_id) {
       const token = Cookies.get('token');
         if(!window.confirm("Are you sure")) return;
@@ -28,7 +30,7 @@ export default function TransactionList({transactions,fetchTransactions,setEditT
           method:"DELETE",
           headers:{
             Authorization: `Bearer ${token}`
-          }
+          },
      });
      if(res.ok){
         fetchTransactions();
@@ -55,7 +57,8 @@ export default function TransactionList({transactions,fetchTransactions,setEditT
           </TableRow>
         </TableHead>
         <TableBody>
-          {transactions.map((row) => (
+          {data.map((month)=>
+          month.transactions.map((row) => (
             <TableRow
               key={row._id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -80,7 +83,8 @@ export default function TransactionList({transactions,fetchTransactions,setEditT
                 </IconButton>
               </TableCell>
             </TableRow>
-          ))}
+          ))
+          )}
         </TableBody>
       </Table>
     </TableContainer>

@@ -8,7 +8,8 @@ const categories = [
     { label:"Investment", icon:"user" },
     { label:"Bills", icon:"user" },
     { label:"Food", icon:"user" },
-]
+];
+
 export const register = async (req,res) =>{
     //get all form data
     const {email,password,firstName,lastName} = req.body;
@@ -55,6 +56,6 @@ export const login = async (req,res) =>{
     username:email,
     _id: user._id,
    };
-   const token = jwt.sign(payload,process.env.JWT_SECRET);
+   const token = jwt.sign("some secret.");
    res.json({message: "successfully logged in.",token,user});
-}
+};

@@ -25,5 +25,6 @@ export default (passport) =>{
                 // or you could create a new account
             }
         });
-    }));
-}
+    })
+  );
+};

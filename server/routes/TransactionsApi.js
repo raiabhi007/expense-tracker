@@ -1,6 +1,4 @@
 import { Router } from "express"
-import passport from "passport";
-import Transaction from '../models/Transaction.js';
 import * as TransactionController from "../controller/TransactionController.js"
 const router = Router();
 

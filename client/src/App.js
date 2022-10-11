@@ -8,8 +8,8 @@ import Cookies from 'js-cookie';
 
 
 function App() {
+
   const token = Cookies.get('token');
- 
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -31,6 +31,7 @@ function App() {
   useEffect(() => {
     fetchUser();
   }, [])
+  
   if(isLoading){
     return <p>Loading ...</p>
   }

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
     firstName: {type:String, required:['First name field is required']},
     lastName: {type:String, required:['Last name field is required']},
     email: {type:String, required:['Email field is required']},
@@ -11,4 +11,4 @@ const UserSchema = new Schema({
 {timestamps:true}
 );
 
-export default new mongoose.model("User",UserSchema);
+export default new mongoose.model("User",userSchema);

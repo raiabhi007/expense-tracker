@@ -3,13 +3,12 @@ import connect from './database/mongodb.js';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import passport from 'passport';
-
 import passportConfig from './config/passport.js';
 import * as  dotenv from 'dotenv';
 import routes from "./routes/index.js";
 dotenv.config();
 
-const PORT = 4000
+const PORT = process.env.PORT||4000
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());

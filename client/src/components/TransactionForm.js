@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from "@mui/material/Box";
@@ -9,7 +9,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Button from '@mui/material/Button';
-import {useEffect} from 'react';
 import Cookies from 'js-cookie';
 import {useSelector} from 'react-redux';
 
@@ -18,19 +17,18 @@ const InitialForm = {
     description: "",
     date: new Date(),
     category_id:'',
+    type:"expenses",
   }
 
 export default function TransactionForm({fetchTransactions,editTransaction}) {
     const { categories } = useSelector((state) => state.auth.user);
     const [form,setForm] = useState(InitialForm);
     const token = Cookies.get('token');  
-   
+    const types = ["expense","income","transfer"];
 
     useEffect(() => {
       if(editTransaction.amount !== undefined){
         setForm(editTransaction);
-      }
-      return () => {
       }
     }, [editTransaction])
     
@@ -81,7 +79,7 @@ export default function TransactionForm({fetchTransactions,editTransaction}) {
 
       function getCategoryNameById(){
         return(
-          categories.find((category)=>category._id===form.category_id)??""
+          categories.find((category) => category._id === form.category_id)??""
         );
       }
 
@@ -89,9 +87,21 @@ export default function TransactionForm({fetchTransactions,editTransaction}) {
     <Card sx={{ minWidth: 275, marginTop:10 }}>
       <CardContent>
       <Typography variant="h6">
-            Add New Transactions
+            Add New Transaction
         </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{display:'flex'}}>
+        <Autocomplete
+            value={form.type}
+            onChange={(event, newValue) => {
+              setForm({ ...form, type: newValue });
+            }}
+            id="type"
+            options={types}
+            sx={{ width: 200, marginRight: 5 }}
+            renderInput={(params) => (
+              <TextField {...params} size="small" label="Type" />
+            )}
+          />
         <TextField
        sx= {{marginRight:5}}
         id="outlined-basic" 

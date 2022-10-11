@@ -13,6 +13,7 @@ export default function ButtonAppBar() {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state)=>state.auth.isAuthenticated);
   const dispatch = useDispatch();
+  
   function _logout(){
     Cookies.remove("token");
     dispatch(logout());
