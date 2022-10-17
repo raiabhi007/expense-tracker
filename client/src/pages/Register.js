@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const navigate = useNavigate();
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

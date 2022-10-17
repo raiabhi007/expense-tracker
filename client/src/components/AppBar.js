@@ -24,8 +24,7 @@ export default function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          
+        <Toolbar>        
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to="/" className="text-white">Expensor</Link>
           </Typography>
@@ -34,7 +33,8 @@ export default function ButtonAppBar() {
           </Link>
           {
             isAuthenticated && (
-            <Button color="inherit" onClick={_logout}>Logout</Button>
+            <Button color="inherit" onClick={_logout}>
+              Logout</Button>
           )}
           {
             !isAuthenticated && (

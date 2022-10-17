@@ -8,7 +8,7 @@ let opts = {};
 
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = process.env.JWT_SECRET;
+opts.secretOrKey = "some secret.";
 
 
 export default (passport) =>{

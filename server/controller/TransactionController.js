@@ -47,4 +47,4 @@ export const destroy = async (req,res) =>{
 export const update = async (req,res)=>{
     await Transaction.updateOne({_id:req.params.id},{$set:req.body});
     res.json({message:"success"});
-}
+};

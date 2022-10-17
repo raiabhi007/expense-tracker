@@ -25,7 +25,8 @@ export default function TransactionList(
     async function remove(_id) {
       const token = Cookies.get('token');
         if(!window.confirm("Are you sure")) return;
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/transaction/${_id}`,
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/transaction/${_id}`,
         {
           method:"DELETE",
           headers:{
@@ -39,7 +40,7 @@ export default function TransactionList(
     }
 
     function formatDate(date){
-        return dayjs(date).format("DD MMM YYYY");
+        return dayjs(date).format("DD MMM, YYYY");
     }
 
   return (

@@ -56,6 +56,6 @@ export const login = async (req,res) =>{
     username:email,
     _id: user._id,
    };
-   const token = jwt.sign("some secret.");
+   const token = jwt.sign(payload,"some secret.");
    res.json({message: "successfully logged in.",token,user});
 };

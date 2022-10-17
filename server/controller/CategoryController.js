@@ -5,6 +5,7 @@ export const destroy = async (req,res) =>{
     const newCategories = categories.filter(
         (category) => category._id != req.params.id
     );
+    
     const user = await User.updateOne(
     {_id:req.user.id},
     {$set:{categories:newCategories}});
